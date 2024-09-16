@@ -1,0 +1,20 @@
+% Define the clauses based on the premises
+% Clauses in Prolog represent the negation of the positive literals
+
+% 1. Anyone passing his history exams and winning the lottery is happy.
+happy(X) :- passing_history(X), winning_lottery(X).
+% In clause form: -happy(X) \/ passing_history(X) \/ winning_lottery(X)
+
+% 2. Anyone who studies or is lucky can pass all his exams.
+passing_history(X) :- studies(X); lucky(X).
+studies(john) :- false.
+lucky(john).
+winning_lottery(X) :- lucky(X).
+prove_john_happy :-
+    \+ happy(john),
+    write('Proof by contradiction: John is not happy'), nl,
+    fail.
+resolution_refutation :-
+    prove_john_happy,
+    !,
+    write('John is happy!'), nl.
